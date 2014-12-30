@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>option | ll</title>
+  <link rel="stylesheet/less" type="text/css" href="style/options.less">
+  <script src="script/lib/lib.js"></script>
+</head>
+<body class="body">
+  <div class="l-container">
+    <header class="header">
+      <p>option</p>
+    </header>
+    <main id="ctrl">
+      <section class="opts-">
+         <div class="opts-item-">
+           <label for="textarea" class="opts-label-block">エイリアス設定</label>
+           <div class="opts-item-main">
+             <textarea id="textarea" class="opts-textarea"
+               v-model="aliases"
+               placeholder="goo,https://www.google.co.jp
+yah,http://www.yahoo.co.jp
+e,http://example.com
+               "
+             ></textarea>
+           </div>
+           <div class="opts-item-notice">
+             <small>csv形式で入力。<br>
+               csvとは、項目をカンマ(,)で区切って列挙したもの<br>
+               ex) item1,item2,item3,...
+             </small>
+           </div>
+         </div>
+
+         <div class="opts-item-">
+           <button class="opts-btn" v-on="click:save">保存</button>
+         </div>
+      </section>
+    </main>
+  </div>
+  <script src="script/options.js"></script>
+</body>
+</html>

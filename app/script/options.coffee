@@ -19,23 +19,6 @@ getDatas()
     el: '#ctrl'
     data:
       aliases: ret.aliases
-        # aliases: do ->
-        #   result = ''
-        #
-        #   for alias, url of ret.options.aliases
-        #     result += "#{alias},#{url}\n"
-        #
-        #   result
-        # shows: ret.options.shows
-
     methods:
       save: ->
         setDatas {aliases: @aliases}
-            # aliases: do (a = @options.aliases)->
-            #   lines = a.split(/\n/)
-            #   ret = {}
-            #
-            #   for line in lines
-            #     [alias, url] = line.match(/(.+)?,?(.+)?/)
-            #
-            #     ret[alias, url]

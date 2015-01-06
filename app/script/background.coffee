@@ -40,9 +40,12 @@ chrome.omnibox.onInputEntered.addListener (txt) ->
     url = null
 
     chrome.tabs.query query, (tabs) ->
-      aliases.str += "\n#{contains[1]},#{tabs[0].url}"
-
-      chrome.storage.local.set {aliases: aliases.str}, ->
+      intervalId = setInterval ->
+        if aliases.str?
+          clearInterval intervalId
+          aliases.str += "\n#{contains[1]},#{tabs[0].url}"
+          chrome.storage.local.set {aliases: aliases.str}, ->
+      , 100
   else
     chrome.tabs.update url: aliases.obj[txt]
 

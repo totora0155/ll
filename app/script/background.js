@@ -62,10 +62,16 @@
       };
       url = null;
       return chrome.tabs.query(query, function(tabs) {
-        aliases.str += "\n" + contains[1] + "," + tabs[0].url;
-        return chrome.storage.local.set({
-          aliases: aliases.str
-        }, function() {});
+        var intervalId;
+        return intervalId = setInterval(function() {
+          if (aliases.str != null) {
+            clearInterval(intervalId);
+            aliases.str += "\n" + contains[1] + "," + tabs[0].url;
+            return chrome.storage.local.set({
+              aliases: aliases.str
+            }, function() {});
+          }
+        }, 100);
       });
     } else {
       return chrome.tabs.update({

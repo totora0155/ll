@@ -10,9 +10,9 @@ objectize = (str) ->
   ret = {}
 
   lines = str.split "\n"
-  for line in lines
+  for line in lines when line isnt '' and re.test line
     [key, val] = line.match(re)[1..]
-    ret[key] = val
+    ret[key] = val unless key is '' or val is ''
 
   ret
 
@@ -36,10 +36,10 @@ chrome.omnibox.onInputChanged.addListener (txt, suggest) ->
 chrome.omnibox.onInputEntered.addListener (txt) ->
   contains = txt.match /^\+(.*)/
   if contains?
-    setQuery = {currentWindow: true, active: true}
+    query = {currentWindow: true, active: true}
     url = null
 
-    chrome.tabs.query setQuery, (tabs) ->
+    chrome.tabs.query query, (tabs) ->
       aliases.str += "\n#{contains[1]},#{tabs[0].url}"
 
       chrome.storage.local.set {aliases: aliases.str}, ->

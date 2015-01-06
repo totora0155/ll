@@ -17,8 +17,13 @@
     lines = str.split("\n");
     for (_i = 0, _len = lines.length; _i < _len; _i++) {
       line = lines[_i];
+      if (!(line !== '' && re.test(line))) {
+        continue;
+      }
       _ref = line.match(re).slice(1), key = _ref[0], val = _ref[1];
-      ret[key] = val;
+      if (!(key === '' || val === '')) {
+        ret[key] = val;
+      }
     }
     return ret;
   };
@@ -48,15 +53,15 @@
   });
 
   chrome.omnibox.onInputEntered.addListener(function(txt) {
-    var contains, setQuery, url;
+    var contains, query, url;
     contains = txt.match(/^\+(.*)/);
     if (contains != null) {
-      setQuery = {
+      query = {
         currentWindow: true,
         active: true
       };
       url = null;
-      return chrome.tabs.query(setQuery, function(tabs) {
+      return chrome.tabs.query(query, function(tabs) {
         aliases.str += "\n" + contains[1] + "," + tabs[0].url;
         return chrome.storage.local.set({
           aliases: aliases.str

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<style>
+.label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: .5em;
+}
+.input-alias,
+.input-category {
+  padding: 5px 7px;
+  border: 1px solid #ccc;
+  margin-bottom: .75em;
+  outline: none;
+  transition: .2s ease-in;
+}
+.input-alias:focus,
+.input-category:focus { border: 1px solid #55acee; }
+.action { text-align: right; }
+.button {
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  background: transparent;
+  transition: .2s ease-in;
+}
+.button:hover { background: rgba(0,0,0,.3); }
+</style>
+<div ng-app="ll"><div ng-controller="LlController as ll">
+  <label class="label" for="alias">Alias</label>
+  <input class="input-alias" type="text" id="alias" ng-model="ll.$.alias">
+  <label class="label" for="category">Category</label>
+  <input class="input-category" type="text" id="category" ng-model="ll.$.category">
+  <div class="action">
+    <save class="button" id="save"
+      ali="{{ll.$.alias}}"
+      cate="{{ll.$.category}}"
+    ></save>
+  </div>
+</div></div>
+<script src="script/lib/lib.js"></script>
+<script src="script/popup.js"></script>
+</html>

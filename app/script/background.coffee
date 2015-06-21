@@ -15,5 +15,5 @@ chrome.omnibox.onInputChanged.addListener (txt, suggest) ->
   suggest suggestions
 
 chrome.omnibox.onInputEntered.addListener (txt) ->
-  idx = _.findIndex aliases, {$alias: txt}
-  chrome.tabs.update {url: aliases[idx].$url}
+  url = _.result _.findWhere(aliases, {$alias: txt}), '$url'
+  chrome.tabs.update {url}

@@ -7,14 +7,23 @@ angular.module 'll', []
         chrome.tabs.query
           active: true
           lastFocusedWindow: true
-        , (tabs) -> resolve tabs[0].url
+        , (tabs) ->
+          resolve
+            $url: tabs[0].url
+            $title: tabs[0].title
   }
 .factory 'alias', ($q) ->
   aliases = null
   idx = -1
   {
-    get: ($url, $alias = '', $category = '') ->
-      alias = {$url, $alias, $category}
+    hasAlias: (value) ->
+      _idx = _.findIndex aliases, {$alias: value}
+      if _idx is -1 then true
+      else false
+    get: ($data, $alias = '', $category = '') ->
+      {$url, $title} = $data
+      alias = {$url, $title, $alias, $category}
+      console.log alias
       $q (resolve) ->
         chrome.storage.sync.get 'aliases', (res) ->
           aliases = if res.aliases? then res.aliases else []
@@ -49,15 +58,23 @@ angular.module 'll', []
   bindToController:
     ali: '@'
     cate: '@'
+  controllerAs: 'save'
   controller: ->
     save = @
     @on = ->
       currentUrl.get()
-      .then (url) ->
-        save.ali = '' unless save.ali?
+      .then ($data) ->
         save.cate = '' unless save.cate?
-        alias.get url, save.ali, save.cate
+        alias.get $data, save.ali, save.cate
       .then alias.save
     save
-  controllerAs: 'save'
   template: '<button ng-click="save.on()">Save</button>'
+
+.directive 'valid', (alias) ->
+  restrict: 'A'
+  scope: {}
+  require: 'ngModel'
+  link: (scope, elm, attrs, ctrl) ->
+    ctrl.$validators.unique = (modelValue, viewValue) ->
+      if alias.hasAlias viewValue then true
+      else false

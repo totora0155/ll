@@ -25,19 +25,31 @@
   transition: .2s ease-in;
 }
 .button:hover { background: rgba(0,0,0,.3); }
+.alert { color: #DB4D6D; }
 </style>
 
 <div ng-app="ll"><div ng-controller="LlController as ll">
-  <label class="label" for="alias">Alias</label>
-  <input class="input-alias" type="text" id="alias" ng-model="ll.$alias">
-  <label class="label" for="category">Category</label>
-  <input class="input-category" type="text" id="category" ng-model="ll.$category">
-  <div class="action">
-    <save class="button" id="save"
-      ali="{{ll.$alias}}"
-      cate="{{ll.$category}}"
-    ></save>
-  </div>
+  <form name="form">
+    <label class="label" for="alias">Alias</label>
+    <input class="input-alias" type="text" name="alias" id="alias"
+      ng-model="ll.$alias"
+      valid="alias"
+      >
+    <!-- そのエイリアスは既に存在します -->
+    <p class="alert" role="alert"
+      ng-show="form.alias.$error.unique && form.alias.$touched"
+      >The alias already exists.</p>
+    <label class="label" for="category">Category</label>
+    <input class="input-category" type="text" name="category" id="category"
+      ng-model="ll.$category"
+      >
+    <div class="action">
+      <save class="button" id="save"
+        ali="{{ll.$alias}}" cate="{{ll.$category}}"
+        ng-disabled="form.$invalid"
+        ></save>
+    </div>
+  </form>
 </div></div>
 
 <script src="script/lib/lib.js"></script>

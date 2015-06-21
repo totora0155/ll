@@ -26,18 +26,20 @@
 }
 .button:hover { background: rgba(0,0,0,.3); }
 </style>
+
 <div ng-app="ll"><div ng-controller="LlController as ll">
   <label class="label" for="alias">Alias</label>
-  <input class="input-alias" type="text" id="alias" ng-model="ll.$.alias">
+  <input class="input-alias" type="text" id="alias" ng-model="ll.$alias">
   <label class="label" for="category">Category</label>
-  <input class="input-category" type="text" id="category" ng-model="ll.$.category">
+  <input class="input-category" type="text" id="category" ng-model="ll.$category">
   <div class="action">
     <save class="button" id="save"
-      ali="{{ll.$.alias}}"
-      cate="{{ll.$.category}}"
+      ali="{{ll.$alias}}"
+      cate="{{ll.$category}}"
     ></save>
   </div>
 </div></div>
+
 <script src="script/lib/lib.js"></script>
 <script src="script/popup.js"></script>
 </html>

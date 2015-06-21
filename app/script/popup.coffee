@@ -10,31 +10,37 @@ angular.module 'll', []
         , (tabs) -> resolve tabs[0].url
   }
 .factory 'alias', ($q) ->
+  aliases = null
+  idx = -1
   {
-    get: (url, alias = '', category = '') ->
-      console.log alias, category
-      alias = {url, alias, category}
+    get: ($url, $alias = '', $category = '') ->
+      alias = {$url, $alias, $category}
       $q (resolve) ->
         chrome.storage.sync.get 'aliases', (res) ->
-          idx = _.findIndex res.aliases, {url}
-          if idx > -1 then resolve res.aliases[idx]
+          aliases = if res.aliases? then res.aliases else []
+          idx = _.findIndex aliases, {$url}
+          if idx > -1
+            if alias.$alias is '' then resolve aliases[idx]
+            else resolve alias
           else resolve alias
     save: (alias) ->
-      console.log alias
-      # if targetIdx > -1
-        # aliases[targetIdx] = alias
-      # else
-        # aliases.push alias
-      chrome.storage.sync.set {aliases: alias}, ->
-
+      if idx > -1
+        aliases[idx] = alias
+        chrome.storage.sync.set {aliases}, ->
+      else
+        aliases[aliases.length] = alias
+        chrome.storage.sync.set {aliases}, ->
   }
 
 .controller 'LlController', (currentUrl, alias) ->
   ll = @
-  ll.$ = {}
   currentUrl.get()
   .then alias.get
-  .then (alias) -> ll.$ = alias
+  .then (alias) ->
+    {$alias, $category} = alias
+    ll.$alias = $alias
+    ll.$category = $category
+  ll
 
 .directive 'save', (currentUrl, alias) ->
   restrict: 'E'
@@ -48,12 +54,10 @@ angular.module 'll', []
     @on = ->
       currentUrl.get()
       .then (url) ->
-        console.log save.ali, save.cate
         save.ali = '' unless save.ali?
         save.cate = '' unless save.cate?
         alias.get url, save.ali, save.cate
       .then alias.save
-      .then -> console.log 'done'
     save
   controllerAs: 'save'
   template: '<button ng-click="save.on()">Save</button>'

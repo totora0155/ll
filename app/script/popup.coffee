@@ -11,6 +11,7 @@ angular.module 'll', []
           resolve
             $url: tabs[0].url
             $title: tabs[0].title
+            $count: 0
   }
 .factory 'alias', ($q) ->
   aliases = null
@@ -21,9 +22,8 @@ angular.module 'll', []
       if _idx is -1 then true
       else false
     get: ($data, $alias = '', $category = '') ->
-      {$url, $title} = $data
-      alias = {$url, $title, $alias, $category}
-      console.log alias
+      {$url, $title, $count} = $data
+      alias = {$url, $title, $alias, $category, $count}
       $q (resolve) ->
         chrome.storage.sync.get 'aliases', (res) ->
           aliases = if res.aliases? then res.aliases else []

@@ -8,6 +8,8 @@ chrome.omnibox.onInputChanged.addListener (txt, suggest) ->
   .filter (obj) ->
     re = new RegExp txt
     re.test obj.$alias
+  .sortBy (obj) -> obj.$count
+  .reverse()
   .map (obj) ->
     content: obj.$alias
     description: obj.$title
@@ -15,5 +17,7 @@ chrome.omnibox.onInputChanged.addListener (txt, suggest) ->
   suggest suggestions
 
 chrome.omnibox.onInputEntered.addListener (txt) ->
-  url = _.result _.findWhere(aliases, {$alias: txt}), '$url'
-  chrome.tabs.update {url}
+  idx = _.findIndex aliases, {$alias: txt}
+  aliases[idx].$count++
+  chrome.tabs.update {url: aliases[idx].$url}
+  chrome.storage.sync.set {aliases}, ->

@@ -39,6 +39,11 @@ angular.module 'll', []
       else
         aliases[aliases.length] = alias
         chrome.storage.sync.set {aliases}, ->
+    del: ($data) ->
+      {$url} = $data
+      aliases = _.filter aliases, (obj) -> obj.$url isnt $url
+      chrome.storage.sync.set {aliases}, ->
+
   }
 
 .controller 'LlController', (currentUrl, alias) ->
@@ -51,6 +56,19 @@ angular.module 'll', []
     ll.$category = $category
   ll
 
+.directive 'del', (currentUrl, alias) ->
+  restrict: 'E'
+  replace: true
+  scope: {}
+  controllerAs: 'del'
+  controller: ->
+    del = @
+    del.on = ->
+      currentUrl.get()
+      .then alias.del
+    del
+  template: '<button ng-click="del.on()">Del</button>'
+
 .directive 'save', (currentUrl, alias) ->
   restrict: 'E'
   replace: true
@@ -61,7 +79,7 @@ angular.module 'll', []
   controllerAs: 'save'
   controller: ->
     save = @
-    @on = ->
+    save.on = ->
       currentUrl.get()
       .then ($data) ->
         save.cate = '' unless save.cate?

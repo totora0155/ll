@@ -23,21 +23,23 @@ body {
 .input-alias:focus,
 .input-category:focus { border: 1px solid #55acee; }
 .action { text-align: right; }
-.button {
+.btn {
   border: 1px solid #ccc;
   border-radius: 2px;
   background: transparent;
   transition: .2s ease-in;
 }
+.btn { cursor: pointer; }
 .ng-invalid.ng-touched,
 .ng-invalid.ng-touched:focus {
   border-color: #DB4D6D;
 }
-.button:hover { background: rgba(0,0,0,.3); }
+.btn:hover { background: rgba(0,0,0,.3); }
 .alert {
   margin: 0 0 1em;
   color: #DB4D6D;
 }
+.btn-red { background: #DB4D6D; }
 </style>
 
 <div ng-app="ll"><div ng-controller="LlController as ll">
@@ -56,7 +58,8 @@ body {
       ng-model="ll.$category"
       >
     <div class="action">
-      <save class="button" id="save"
+      <del class="btn btn-red"></del>
+      <save class="btn" id="save"
         ali="{{ll.$alias}}" cate="{{ll.$category}}"
         ng-disabled="form.$invalid"
         ></save>

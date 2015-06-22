@@ -5,15 +5,15 @@ chrome.omnibox.onInputStarted.addListener ->
 
 chrome.omnibox.onInputChanged.addListener (txt, suggest) ->
   suggestions = _.chain aliases
-  .filter (obj) ->
-    re = new RegExp txt
-    re.test obj.$alias
-  .sortBy (obj) -> obj.$count
-  .reverse()
-  .map (obj) ->
-    content: obj.$alias
-    description: obj.$title
-  .value()
+    .filter (obj) ->
+      re = new RegExp txt
+      re.test obj.$alias
+    .sortBy (obj) -> obj.$count
+    .reverse()
+    .map (obj) ->
+      content: obj.$alias
+      description: obj.$title
+    .value()
   suggest suggestions
 
 chrome.omnibox.onInputEntered.addListener (txt) ->

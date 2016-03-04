@@ -1,5 +1,6 @@
 import storage from 'helpers/storage';
 import esc from 'lodash.escape';
+import escRE from 'lodash.escaperegexp';
 import unesc from 'lodash.unescape';
 
 storage.get().then(onReady);
@@ -41,7 +42,15 @@ function onReady(aliases) {
   });
 
   chrome.omnibox.onInputEntered.addListener((text) => {
-    const idx = aliases.findIndex(aliasData => aliasData.url === esc(text));
+    let idx = null;
+
+    idx = aliases.findIndex(aliasData => aliasData.url === esc(text));
+    if (!~idx) {
+      idx = aliases.findIndex((aliasData) => {
+        const re = new RegExp(escRE(text))
+        return re.test(aliasData.url);
+      });
+    }
 
     if (~idx) {
       const {url} = aliases[idx];

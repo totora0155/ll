@@ -1,11 +1,93 @@
+html {
+  font: 15px/1.6 YuGothic,"游ゴシック","Hiragino Kaku Gothic Pro","ヒラギノ角ゴ Pro W3","メイリオ","Meiryo","ＭＳ Ｐゴシック",Osaka,sans-serif;
+}
+
 body {
+  width: 20em;
+  margin: 0;
+  font-size: inherit;
+}
+
+label {
+  display: inline-block;
+  padding: 0 .75rem;
+  margin-bottom: -4px;
+  font-weight: bold;
+  /*color: #e8004d;*/
+  font-size: .95em;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+input {
+  box-sizing: border-box;
+  outline: none;
+  font-size: inherit;
+  padding: .5rem .75rem;
+  border-radius: 2px;
+}
+
+input[type=text] {
+  width: 100%;
+  transition: .16s ease-in-out;
+  border: 1px solid #888;
+}
+
+input[type=text]:focus {
+  border-color: #e8004d;
+}
+
+a[role=button] {
+  cursor: pointer;
+}
+
+.form__box {
+  box-sizing: border-box;
+  padding: 1rem;
+  margin: 0 auto;
+}
+
+.form__group {
+  margin-top: 1rem;
+}
+
+.form__input-group {
+  display: flex;
+}
+
+.form__input-group-item.form__input-text {
+  margin-right: 1rem;
+}
+
+.form__input-group-item.form__btn {
+  flex-basis: 5em;
+}
+
+.form__btn {
+  width: auto;
+  color: #fff;
+  border: 1px solid #e8004d;
+  background: #e8004d;
+}
+
+.list__btn {
+  width: 100%;
+  display: block;
+  background: #e8004d;
+  text-align: center;
+  color: #fff;
+}
+
+/*body {
   width: 233px;
 }
+
 .label {
   display: block;
   font-weight: bold;
   margin-bottom: .5em;
 }
+
 .input-alias,
 .input-category {
   width: 100%;
@@ -16,6 +98,7 @@ body {
   outline: none;
   transition: .2s ease-in;
 }
+
 .input-alias:focus,
 .input-category:focus { border: 1px solid #55acee; }
 .action { text-align: right; }
@@ -25,16 +108,19 @@ body {
   background: transparent;
   transition: .2s ease-in;
 }
+
 .btn { cursor: pointer; }
 .ng-invalid.ng-touched,
 .ng-invalid.ng-touched:focus {
   border-color: #DB4D6D;
 }
+
 .btn:hover { background: rgba(0,0,0,.3); }
 .alert {
   margin: 0 0 1em;
   color: #DB4D6D;
 }
+
 .btn-red { background: #DB4D6D; }
 .btn[disabled] { background: transparent; }
 .more {
@@ -44,3 +130,4 @@ body {
   text-align: center;  background: rgba(0,0,0,.4);
   cursor: pointer;
 }
+*/

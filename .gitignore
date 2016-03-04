@@ -3,3 +3,6 @@ dist/
 node_modules
 npm-debug.log*
 .DS_Store
+
+app/scripts/background.js
+app/popup/scripts/popup.js

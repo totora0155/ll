@@ -8,6 +8,7 @@
     "transform-es2015-parameters",
     "transform-function-bind",
     "transform-object-assign",
-    "transform-object-rest-spread"
+    "transform-object-rest-spread",
+    "transform-runtime"
   ]
 }

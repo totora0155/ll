@@ -22,7 +22,7 @@
       "38": "icons/icon38.png"
     },
     "default_title": "ll",
-    "default_popup": "ll.html"
+    "default_popup": "popup/index.html"
   },
   "background": {
     "persistent": false,

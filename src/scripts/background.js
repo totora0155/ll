@@ -1,40 +1,54 @@
-// var aliases;
-//
-// aliases = [];
-//
-// chrome.omnibox.onInputStarted.addListener(function() {
-//   return chrome.storage.sync.get('aliases', function(res) {
-//     return aliases = res.aliases;
-//   });
-// });
-//
-// chrome.omnibox.onInputChanged.addListener(function(txt, suggest) {
-//   var suggestions;
-//   suggestions = _.chain(aliases).filter(function(obj) {
-//     var re;
-//     re = new RegExp(txt);
-//     return re.test(obj.$alias);
-//   }).sortBy(function(obj) {
-//     return obj.$count;
-//   }).reverse().map(function(obj) {
-//     return {
-//       content: obj.$alias,
-//       description: obj.$title
-//     };
-//   }).value();
-//   return suggest(suggestions);
-// });
-//
-// chrome.omnibox.onInputEntered.addListener(function(txt) {
-//   var idx;
-//   idx = _.findIndex(aliases, {
-//     $alias: txt
-//   });
-//   aliases[idx].$count++;
-//   chrome.tabs.update({
-//     url: aliases[idx].$url
-//   });
-//   return chrome.storage.sync.set({
-//     aliases: aliases
-//   }, function() {});
-// });
+import storage from 'helpers/storage';
+import esc from 'lodash.escape';
+import unesc from 'lodash.unescape';
+
+storage.get().then(onReady);
+
+// const sample = [
+//   {
+//     url: esc('https://www.youtube.com/?hl=ja&gl=JP'),
+//     alias: 'yt',
+//     lastEnter: 0,
+//   },
+//   {
+//     url: esc('https://github.com/totora0155'),
+//     alias: 'gh',
+//     lastEnter: 0,
+//   },
+//   {
+//     url: 'http://www.netflix.com/browse',
+//     alias: 'nf',
+//     lastEnter: 0,
+//   },
+// ]
+
+function onReady(aliases) {
+  chrome.omnibox.onInputChanged.addListener((text, suggest) => {
+    const re = new RegExp(text);
+    const filtered = aliases.filter((aliasData) => {
+      return re.test(aliasData.alias);
+    });
+    const sorted = filtered.sort((a, b) => {
+      return b.lastEnter - a.lastEnter;
+    });
+    const mapped = sorted.map((aliasData) => {
+      return {
+        content: unesc(aliasData.url),
+        description: `@${aliasData.alias}  ${aliasData.url}`,
+      };
+    });
+    return suggest(mapped);
+  });
+
+  chrome.omnibox.onInputEntered.addListener((text) => {
+    const idx = aliases.findIndex(aliasData => aliasData.url === esc(text));
+
+    if (~idx) {
+      const {url} = aliases[idx];
+      chrome.tabs.update({url});
+
+      aliases[idx].lastEnter = Date.now();
+      storage.set(aliases);
+    }
+  });
+}

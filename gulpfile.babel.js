@@ -35,7 +35,7 @@ gulp.task('script:popup', (() => {
 })());
 
 {
-  const src = 'src/scripts/**/*.js';
+  const src = 'src/**/*.js';
   const tasks = ["script:background", "script:popup"];
 
   gulp.task('scripts', tasks, () => {

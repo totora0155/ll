@@ -21,23 +21,13 @@ class Form extends React.Component {
         });
     });
 
-    function init() {
-      return (async () => {
-        const url = await LLStore.currentURL;
-        const aliases = await LLStore.aliases;
-        const targetIdx = aliases.findIndex(aliasData => aliasData.url === url);
-
-        if (~targetIdx) {
-          const exists = true
-          const {url, alias} = aliases[targetIdx];
-          this.setState({exists, url, alias, targetIdx});
-        } else {
-          const exists = false
-          this.setState({exists, url, targetIdx});
-        }
-        return {url, aliases};
-      })();
-    }
+    LLStore.addDeleteAliasListener(() => {
+      console.log('dleetealias');
+      init.call(this)
+        .then(({aliases}) => {
+          chrome.runtime.sendMessage({aliases}, () => {});
+        });
+    });
   }
 
   change(e) {
@@ -91,3 +81,21 @@ class Form extends React.Component {
 }
 
 export default Form;
+
+function init() {
+  return (async () => {
+    const url = await LLStore.currentURL;
+    const aliases = await LLStore.aliases;
+    const targetIdx = aliases.findIndex(aliasData => aliasData.url === url);
+
+    if (~targetIdx) {
+      const exists = true
+      const {url, alias} = aliases[targetIdx];
+      this.setState({exists, url, alias, targetIdx});
+    } else {
+      const exists = false
+      this.setState({exists, url, targetIdx});
+    }
+    return {url, aliases};
+  })();
+}

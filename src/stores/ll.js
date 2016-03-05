@@ -40,6 +40,14 @@ class LLStore {
     ev.emit(actionType.CONFIRM, type, msg, handleYes, handleNo);
   }
 
+  static emitDeleteAlias() {
+    ev.emit(actionType.DELETE_ALIAS);
+  }
+
+  static addDeleteAliasListener(handle) {
+    ev.on(actionType.DELETE_ALIAS, handle);
+  }
+
   static emitEndDialog() {
     ev.emit(actionType.END_DIALOG);
 
@@ -85,6 +93,7 @@ LLDispatcher.register((payload) => {
           const aliases = await storage.get();
           aliases.splice(index, 1);
           storage.set(aliases);
+          LLStore.emitDeleteAlias();
         })();
       }
 

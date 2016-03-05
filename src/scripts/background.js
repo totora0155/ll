@@ -26,11 +26,11 @@ storage.get().then(onReady);
 function onReady(_aliases) {
   let aliases = _aliases;
 
-  // chrome.runtime.onMessage.addListener((req) => {
-  //   if (req.aliases) {
-  //     aliases = req.aliases;
-  //   }
-  // });
+  chrome.runtime.onMessage.addListener((req) => {
+    if (req.aliases) {
+      aliases = req.aliases;
+    }
+  });
 
   chrome.omnibox.onInputChanged.addListener((text, suggest) => {
     const re = new RegExp(text);

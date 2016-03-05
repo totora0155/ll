@@ -1,6 +1,7 @@
 import React from 'react';
 import LLAction from 'actions/ll';
 import LLStore from 'stores/ll'
+import esc from 'lodash.escape';
 
 class Form extends React.Component {
   constructor(props) {
@@ -50,7 +51,7 @@ class Form extends React.Component {
     e.preventDefault();
 
     (async () => {
-      const url = await LLStore.currentURL;
+      const url = esc(this.refs.url.value);
       const alias = this.refs.alias.value;
       const lastEnter = Date.now();
 

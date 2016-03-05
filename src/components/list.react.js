@@ -29,15 +29,19 @@ class List extends React.Component {
   }
 
   deleteActionForAlias(e) {
-    const {index, msg} = e.target.dataset;
+    const {index, type, msg} = e.target.dataset;
     const handleYes = () => {
       LLAction.deleteAlias(index);
+      (async () => {
+        await LLStore.emitEndDialog();
+        LLStore.emitShowDialog('alert', 'test');
+      })();
     }
     const handleNo = () => {
-      console.log(1);
+      LLStore.emitEndDialog();
     }
 
-    LLAction.confirm(msg, handleYes, handleNo);
+    LLAction.confirm(type, msg, handleYes, handleNo);
   }
 
   render() {
@@ -49,7 +53,7 @@ class List extends React.Component {
           <span className="list__alias-name">{alias.alias}</span>
           <small className="list__alias-url">{alias.url}</small>
           <a role="button" className="list__delete-btn icono-cross"
-            data-index={idx} data-msg={msg}
+            data-index={idx} data-msg={msg} data-type="confirm"
             onClick={::this.deleteActionForAlias}></a>
         </li>
       );

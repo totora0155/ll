@@ -36,12 +36,26 @@ class LLStore {
     ev.on(actionType.ADD_ALIAS, handle);
   }
 
-  static emitShowDialog(msg, handleYes, handleNo) {
-    ev.emit(actionType.CONFIRM, msg, handleYes, handleNo);
+  static emitShowDialog(type, msg, handleYes, handleNo) {
+    ev.emit(actionType.CONFIRM, type, msg, handleYes, handleNo);
+  }
+
+  static emitEndDialog() {
+    ev.emit(actionType.END_DIALOG);
+
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        return resolve();
+      }, 161);
+    });
   }
 
   static addShowDialogListener(handle) {
     ev.on(actionType.CONFIRM, handle);
+  }
+
+  static addEndDialogListener(handle) {
+    ev.on(actionType.END_DIALOG, handle);
   }
 }
 
@@ -78,8 +92,8 @@ LLDispatcher.register((payload) => {
 
     case actionType.CONFIRM:
       {
-        const {msg, handleYes, handleNo} = payload;
-        LLStore.emitShowDialog(msg, handleYes, handleNo);
+        const {type, msg, handleYes, handleNo} = payload;
+        LLStore.emitShowDialog(type, msg, handleYes, handleNo);
       }
       break;
   }

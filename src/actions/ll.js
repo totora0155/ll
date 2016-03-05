@@ -10,9 +10,10 @@ class LLAction {
     });
   }
 
-  static confirm(msg, handleYes, handleNo) {
+  static confirm(type, msg, handleYes, handleNo) {
     LLDispatcher.dispatch({
       actionType: actionType.CONFIRM,
+      type, 
       msg,
       handleYes,
       handleNo,

@@ -57,7 +57,9 @@ class Form extends React.Component {
 
       if (url && alias) {
         LLAction.addAlias({url, alias, lastEnter}, this.state.targetIdx);
-        LLStore.emitShowDialog('alert', `${alias} saved`);
+        this.state.exists
+        ? LLStore.emitShowDialog('alert', `${alias} updated`)
+        : LLStore.emitShowDialog('alert', `${alias} saved`);
       } else {
         LLStore.emitShowDialog('alert', `There is a blank :(`);
       }

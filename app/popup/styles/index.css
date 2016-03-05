@@ -107,6 +107,7 @@ a[role=button] {
 }
 
 .list__alias {
+  position: relative;
   padding: .5rem 1rem;
   transition: .16s linear;
 }
@@ -117,6 +118,11 @@ a[role=button] {
 
 .list__alias:hover .list__alias-name {
   color: #e8004d;
+}
+
+.list__alias:hover .list__delete-btn:before,
+.list__alias:hover .list__delete-btn:after {
+  box-shadow: inset 0 0 0 32px #e8004d;
 }
 
 .list__alias-name {
@@ -130,63 +136,17 @@ a[role=button] {
   padding-left: 1rem;
   text-align: right;
   font-size: .75em;
-  color: hsla(0, 0%, 0%, .7);
+  color: hsla(0, 0%, 0%, .6);
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-
-
-/*body {
-  width: 233px;
+.list__delete-btn {
+  position: absolute;
+  right: 0;
+  top: .8rem;
+  display: inline-block;
+  transform-origin: right top;
+  transform: scale(.6) rotate(45deg);
+  color: hsla(0, 0%, 0%, .6);
 }
-
-.label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: .5em;
-}
-
-.input-alias,
-.input-category {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 5px 7px;
-  border: 1px solid #ccc;
-  margin-bottom: .75em;
-  outline: none;
-  transition: .2s ease-in;
-}
-
-.input-alias:focus,
-.input-category:focus { border: 1px solid #55acee; }
-.action { text-align: right; }
-.btn {
-  border: 1px solid #ccc;
-  border-radius: 2px;
-  background: transparent;
-  transition: .2s ease-in;
-}
-
-.btn { cursor: pointer; }
-.ng-invalid.ng-touched,
-.ng-invalid.ng-touched:focus {
-  border-color: #DB4D6D;
-}
-
-.btn:hover { background: rgba(0,0,0,.3); }
-.alert {
-  margin: 0 0 1em;
-  color: #DB4D6D;
-}
-
-.btn-red { background: #DB4D6D; }
-.btn[disabled] { background: transparent; }
-.more {
-  display: block;
-  padding: .75em;
-  margin: 1em 0;
-  text-align: center;  background: rgba(0,0,0,.4);
-  cursor: pointer;
-}
-*/

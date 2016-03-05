@@ -33,6 +33,7 @@ class List extends React.Component {
         <li className="list__alias" key={alias.alias}>
           <span className="list__alias-name">{alias.alias}</span>
           <small className="list__alias-url">{alias.url}</small>
+          <a role="button" className="list__delete-btn icono-cross"></a>
         </li>
       );
     });

@@ -4,6 +4,7 @@ node_modules
 bower_components
 npm-debug.log*
 .DS_Store
+*.zip
 
 app/scripts/background.js
 app/popup/scripts/popup.js

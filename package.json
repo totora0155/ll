@@ -4,7 +4,8 @@
   "description": "",
   "main": "",
   "scripts": {
-    "start": "gulp scripts"
+    "start": "gulp scripts",
+    "zip": "zip ll.zip -r app"
   },
   "keywords": [],
   "author": "nju33",

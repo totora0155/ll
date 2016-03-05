@@ -86,8 +86,8 @@ class Dialog extends React.Component {
     return (
       <div>
         <CSSTransitionGroup component="div" transitionName="dialog"
-          transitionEnterTimeout={this.state.visible ? 160 : false}
-          transitionLeaveTimeout={this.state.visible ? false : 160}
+          transitionEnterTimeout={this.state.visible ? 160 : 0}
+          transitionLeaveTimeout={this.state.visible ? 0 : 160}
           >{dialog}</CSSTransitionGroup>
       </div>
     );

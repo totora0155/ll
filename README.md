@@ -10,7 +10,8 @@
 
 1. Click to <img height="15" width="15" src="https://raw.githubusercontent.com/totora0155/ll/master/media/icon.png">
 &nbsp;in a favorite page
-2. Focus the omnibox (Tips: There is a hot key `ctrl+l` or `cmd+l`)
-3. Continue to type `ll` then pressing the `Tab` key
-4. So you wanna go to enter the alias name of favorite page
-5. Please visit
+2. Register the favorite alias to the page
+3. Focus the omnibox (Tips: There is a hot key `ctrl+l` or `cmd+l`)
+4. Continue to type `ll` then pressing the `Tab` key
+5. So you wanna go to enter the alias name of a favorite page
+6. Please visit

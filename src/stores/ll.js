@@ -41,10 +41,14 @@ LLDispatcher.register((payload) => {
   switch (payload.actionType) {
     case actionType.ADD_ALIAS:
       {
-        const {alias} = payload;
+        const {alias, targetIdx} = payload;
         storage.get()
           .then((aliases) => {
-            aliases.push(alias);
+            if (~targetIdx) {
+              aliases[targetIdx] = alias;
+            } else {
+              aliases.push(alias);
+            }
             return Promise.resolve(aliases);
           })
           .then(storage.set)

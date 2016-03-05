@@ -11,17 +11,39 @@ class Form extends React.Component {
   }
 
   componentDidMount() {
-    (async () => {
-      const url = await LLStore.currentURL;
-      this.setState({url});
-    })();
+    init.call(this);
 
     LLStore.addAddAliasListener(() => {
-      (async () => {
-        const aliases = await LLStore.aliases;
-        chrome.runtime.sendMessage({aliases}, () => {});
-      })();
+      init.call(this)
+        .then(({aliases}) => {
+          chrome.runtime.sendMessage({aliases}, () => {});
+        });
     });
+
+    function init() {
+      return (async () => {
+        const url = await LLStore.currentURL;
+        const aliases = await LLStore.aliases;
+        const targetIdx = aliases.findIndex(aliasData => aliasData.url === url);
+
+        if (~targetIdx) {
+          const exists = true
+          const {url, alias} = aliases[targetIdx];
+          this.setState({exists, url, alias, targetIdx});
+        } else {
+          const exists = false
+          this.setState({exists, url, targetIdx});
+        }
+        return {url, aliases};
+      })();
+    }
+  }
+
+  change(e) {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+    return true;
   }
 
   submit(e) {
@@ -32,7 +54,7 @@ class Form extends React.Component {
       const alias = this.refs.alias.value;
       const lastEnter = Date.now();
 
-      LLAction.addAlias({url, alias, lastEnter});
+      LLAction.addAlias({url, alias, lastEnter}, this.state.targetIdx);
     })();
   }
 
@@ -41,16 +63,18 @@ class Form extends React.Component {
       <form className="form__box" onSubmit={::this.submit}>
         <div className="form__group">
           <label className="form__label" htmlFor="url">URL</label>
-          <input className="form__input-text" id="url"
-            type="text" ref="url" value={this.state.url} />
+          <input className="form__input-text" id="url" name="url"
+            type="text" ref="url" value={this.state.url}
+            onChange={::this.change} />
         </div>
         <div className="form__group">
           <label className="form__label" htmlFor="alias">Alias</label>
           <div className="form__input-group">
-            <input tabIndex={1} className="form__input-group-item form__input-text"
-              id="alias" type="text" ref="alias" />
+            <input className="form__input-group-item form__input-text"
+              tabIndex={1}  id="alias" type="text" name="alias" ref="alias"
+              value={this.state.alias} onChange={::this.change} />
             <input className="form__input-group-item form__btn"
-              value="Save" type="submit" />
+              value={this.state.exists ? 'Update' : 'Save'} type="submit" />
           </div>
         </div>
       </form>

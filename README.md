@@ -1,8 +1,8 @@
 # ll
 
-[Chrome Extension Page](https://chrome.google.com/webstore/detail/fooigjfaidjhelecnjldldjoliodibdp/publish-accepted?utm_source=chrome-ntp-icon#)  
-お気に入りのページへ、設定した別名をアドレスバーへ入力してアクセス！
+Access to a url using an alias of it
 
+[Chrome Extension ](https://chrome.google.com/webstore/detail/fooigjfaidjhelecnjldldjoliodibdp/publish-accepted?utm_source=chrome-ntp-icon#)
 ---
 
 ## 使い方

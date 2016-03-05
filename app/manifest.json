@@ -2,35 +2,31 @@
   "manifest_version": 2,
   "name": "__MSG_appName__",
   "description": "__MSG_appDesc__",
-  "version": "1.1.1.1",
-  "default_locale": "ja",
-
-  "options_page": "options.html",
-
-  "omnibox": { "keyword": "ll" },
-
+  "version": "2.0.0.0",
+  "default_locale": "en",
+  "omnibox": {
+    "keyword": "ll"
+  },
   "permissions": [
     "storage",
     "tabs"
   ],
-
   "icons": {
-    "16": "icon/icon_16.png",
-    "48": "icon/icon_48.png",
-    "128": "icon/icon_128.png"
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
   },
-
   "browser_action": {
     "default_icon": {
-      "38": "icon/icon_38.png"
+      "19": "icons/icon19.png",
+      "38": "icons/icon38.png"
     },
-    "default_title": "ll 設定ページへ"
+    "default_title": "ll",
+    "default_popup": "popup/index.html"
   },
-
   "background": {
     "persistent": false,
-    "scripts": ["script/background.js"]
+    "scripts": ["scripts/background.js"]
   },
-
   "content_security_policy":"script-src 'self' 'unsafe-eval'; object-src 'self'"
 }

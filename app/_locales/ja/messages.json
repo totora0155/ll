@@ -1,10 +1,8 @@
 {
   "appName": {
-    "message": "ll",
-    "description": "ウェブストアで表示されるアプリ名"
+    "message": "ll"
   },
   "appDesc": {
-    "message": "お気に入りのページへ、設定した別名をアドレスバーへ入力してアクセス！",
-    "description": "ウェブストアで表示されるアプリの詳細説明"
+    "message": "あるURLへ設定したエイリアスを使ってアクセス"
   }
 }

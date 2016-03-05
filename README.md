@@ -1,13 +1,16 @@
-# ll
+<h1><img height="30" width="30" src="https://raw.githubusercontent.com/totora0155/ll/master/media/icon.png">&nbsp;ll</h1>
 
-Access to a url using an alias of it
+ Access to a url using an alias of it
 
-[Chrome Extension ](https://chrome.google.com/webstore/detail/fooigjfaidjhelecnjldldjoliodibdp/publish-accepted?utm_source=chrome-ntp-icon#)
----
+## install
 
-## 使い方
+[Chrome Extension](https://chrome.google.com/webstore/detail/fooigjfaidjhelecnjldldjoliodibdp/publish-accepted?utm_source=chrome-ntp-icon#)
 
-1. 設定ページでURLの別名を設定
-2. `ctrl`+`l`でアドレスバーをフォーカス
-3. 続けて`ll`と入力して`Tab`を押す
-4. 設定したエイリアス名を入力してアクセス
+## Usage
+
+1. Click to <img height="15" width="15" src="https://raw.githubusercontent.com/totora0155/ll/master/media/icon.png">
+&nbsp;in a favorite page
+2. Focus the omnibox (Tips: There is a hot key `ctrl+l` or `cmd+l`)
+3. Continue to type `ll` then pressing the `Tab` key
+4. So you wanna go to enter the alias name of favorite page
+5. Please visit

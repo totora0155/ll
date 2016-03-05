@@ -22,7 +22,6 @@ class Form extends React.Component {
     });
 
     LLStore.addDeleteAliasListener(() => {
-      console.log('dleetealias');
       init.call(this)
         .then(({aliases}) => {
           chrome.runtime.sendMessage({aliases}, () => {});

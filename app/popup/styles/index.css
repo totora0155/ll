@@ -156,9 +156,23 @@ a[role=button] {
 }
 
 .list__alias {
-  position: relative;
-  padding: .5rem 1rem;
   transition: .16s linear;
+  opacity: 1;
+  height: 44px;
+
+  position: relative;
+  overflow: hidden;
+  padding: .5rem 1rem;
+}
+
+.list-enter {
+  height: 0;
+  opacity: 0;
+}
+
+.list-leave {
+  height: 0;
+  opacity: 0;
 }
 
 .list__alias:hover {
@@ -188,6 +202,7 @@ a[role=button] {
   color: hsla(0, 0%, 0%, .6);
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: pre;
 }
 
 .list__delete-btn {

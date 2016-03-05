@@ -45,6 +45,8 @@ class List extends React.Component {
       LLAction.deleteAlias(index);
       (async () => {
         await LLStore.emitEndDialog();
+        const aliases = await LLStore.aliases;
+        this.setState({aliases});
         LLStore.emitShowDialog('alert', doneMsg);
       })();
     }
@@ -74,7 +76,11 @@ class List extends React.Component {
         return false;
       }
 
-      return <ul className="list__aliases" key="list">{lis}</ul>;
+      return <CSSTransitionGroup component="ul" className="list__aliases"
+        key="list" transitionName="list"
+        transitionEnterTimeout={160}
+        transitionLeaveTimeout={160}
+        >{lis}</CSSTransitionGroup>;
     })();
 
     return (

@@ -9,18 +9,30 @@ class List extends React.Component {
     super(props);
     this.state = {
       visible: false,
+      touched: false,
       aliases: [],
     };
   }
 
   componentDidMount() {
-    LLStore.aliases.then(aliases => this.setState({aliases}));
+    LLStore.aliases.then(aliases => {
+      const touched = aliases.length > 0;
+      this.setState({aliases, touched});
+    });
 
     LLStore.addAddAliasListener(() => {
-      LLStore.aliases.then((aliases) => {
-        this.setState({aliases});
-      });
+      (async () => {
+        const aliases = await LLStore.aliases;
+        this.setState({aliases, touched: true});
+      })();
     });
+
+    LLStore.addDeleteAliasListener(() => {
+      (async () => {
+        const aliases = await LLStore.aliases;
+        aliases.length || this.setState({visible: false});
+      })();
+    })
   }
 
   toggle() {
@@ -76,11 +88,21 @@ class List extends React.Component {
         return false;
       }
 
-      return <CSSTransitionGroup component="ul" className="list__aliases"
-        key="list" transitionName="list"
-        transitionEnterTimeout={160}
-        transitionLeaveTimeout={160}
-        >{lis}</CSSTransitionGroup>;
+      if (lis.length) {
+        return (
+          <CSSTransitionGroup component="ul" className="list__aliases"
+            key="list" transitionName="list"
+            transitionEnterTimeout={160}
+            transitionLeaveTimeout={160}
+            >{lis}</CSSTransitionGroup>
+        );
+      } else if (!lis.length && !this.state.touched) {
+        return (
+          <div key="list" className="list__aliases">
+            <div className="list__not-found">Not found yet<br />:'(</div>
+          </div>
+        );
+      }
     })();
 
     return (

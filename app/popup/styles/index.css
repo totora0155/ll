@@ -15,7 +15,6 @@ label {
   padding: 0 .75rem;
   margin-bottom: -4px;
   font-weight: bold;
-  /*color: #e8004d;*/
   font-size: .95em;
   -webkit-user-select: none;
   user-select: none;
@@ -55,7 +54,6 @@ a[role=button] {
   transition: .16s linear;
   top: .5rem;
   opacity: 1;
-
   position: absolute;
   left: 1rem;
   width: calc(100% - 2rem);
@@ -100,6 +98,10 @@ a[role=button] {
   background: #ff246d;
 }
 
+.dialog__btn:active {
+  background: #ff4b87;
+}
+
 .form__box {
   box-sizing: border-box;
   padding: 1rem;
@@ -123,22 +125,42 @@ a[role=button] {
 }
 
 .form__btn {
+  transition: .16s linear;
+  background: #e8004d;
   width: auto;
   color: #fff;
-  border: 1px solid #e8004d;
-  background: #e8004d;
+  border: 1px solid transparent;
+}
+
+.form__btn:hover {
+  background: #ff246d;
+}
+
+.form__btn:active {
+  background: #ff4b87;
 }
 
 .list__box {
+  position: relative;
   margin-top: 1rem;
 }
 
 .list__btn {
+  transition: .16s linear;
+  background: #e8004d;
   width: 100%;
   display: block;
-  background: #e8004d;
+  padding: .5rem 0;
   text-align: center;
   color: #fff;
+}
+
+.list__btn:hover {
+  background: #ff246d;
+}
+
+.list__btn:active {
+  background: #ff4b87;
 }
 
 .list__aliases {
@@ -214,4 +236,13 @@ a[role=button] {
   transform: scale(.6) rotate(45deg);
   color: hsla(0, 0%, 0%, .6);
   color: hsla(0, 0%, 0%, .6);
+}
+
+.list__not-found {
+  margin-top: 1.7rem;
+  text-align: center;
+  font-size: 1.7em;
+  font-weight: bold;
+  line-height: 2;
+  color: #e8004d;
 }

@@ -1,7 +1,8 @@
 import React from 'react';
+import CSSTransitionGroup from 'react-addons-css-transition-group';
 import LLAction from 'actions/ll';
 import LLStore from 'stores/ll';
-import CSSTransitionGroup from 'react-addons-css-transition-group';
+import actionType from 'constants/action-type';
 
 class List extends React.Component {
   constructor(props) {
@@ -29,31 +30,40 @@ class List extends React.Component {
   }
 
   deleteActionForAlias(e) {
-    const {index, type, msg} = e.target.dataset;
+    const {index, alias, type, actionType: _actionType} = e.target.dataset;
+    let confirmMsg = null;
+    let doneMsg = null;
+
+    switch (_actionType) {
+      case actionType.DELETE_ALIAS:
+        confirmMsg = `Delete '${alias}' ?`;
+        doneMsg = `'${alias}' deleted`;
+        break;
+    }
+
     const handleYes = () => {
       LLAction.deleteAlias(index);
       (async () => {
         await LLStore.emitEndDialog();
-        LLStore.emitShowDialog('alert', 'test');
+        LLStore.emitShowDialog('alert', doneMsg);
       })();
     }
     const handleNo = () => {
       LLStore.emitEndDialog();
     }
 
-    LLAction.confirm(type, msg, handleYes, handleNo);
+    LLAction.confirm(type, confirmMsg, handleYes, handleNo);
   }
 
   render() {
     const lis = this.state.aliases.map((alias, idx) => {
-      const msg = `Delete '${alias.alias}' ?`;
-
       return (
         <li className="list__alias" key={alias.alias}>
           <span className="list__alias-name">{alias.alias}</span>
           <small className="list__alias-url">{alias.url}</small>
           <a role="button" className="list__delete-btn icono-cross"
-            data-index={idx} data-msg={msg} data-type="confirm"
+            data-index={idx} data-alias={alias.alias} data-type="confirm"
+            data-action-type={actionType.DELETE_ALIAS}
             onClick={::this.deleteActionForAlias}></a>
         </li>
       );

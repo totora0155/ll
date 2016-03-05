@@ -51,6 +51,42 @@ a[role=button] {
   user-select: none;
 }
 
+.dialog__box {
+  position: absolute;
+  top: .5rem;
+  left: 1rem;
+  width: calc(100% - 2rem);
+  margin: 0 auto;
+  background: #e8004d;
+  text-align: center;
+  color: #fff;
+}
+
+.dialog__msg {
+  display: inline-block;
+  padding: .75rem 0;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.dialog__btns {
+  display: flex;
+  border-top: 1px solid #c10040;
+}
+
+.dialog__btn {
+  flex-basis: 50%;
+  transition: .16s ease-in-out;
+}
+
+.dialog__no-btn {
+  border-right: 1px solid #c10040;
+}
+
+.dialog__btn:hover {
+  background: #ff246d;
+}
+
 .form__box {
   box-sizing: border-box;
   padding: 1rem;
@@ -148,5 +184,6 @@ a[role=button] {
   display: inline-block;
   transform-origin: right top;
   transform: scale(.6) rotate(45deg);
+  color: hsla(0, 0%, 0%, .6);
   color: hsla(0, 0%, 0%, .6);
 }

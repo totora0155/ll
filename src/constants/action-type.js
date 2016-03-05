@@ -1,5 +1,7 @@
 import keyMirror from 'keymirror';
 
-export default {
+export default keyMirror({
   ADD_ALIAS: null,
-};
+  DELETE_ALIAS: null,
+  CONFIRM: null,
+});

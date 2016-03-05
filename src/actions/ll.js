@@ -9,6 +9,22 @@ class LLAction {
       targetIdx,
     });
   }
+
+  static confirm(msg, handleYes, handleNo) {
+    LLDispatcher.dispatch({
+      actionType: actionType.CONFIRM,
+      msg,
+      handleYes,
+      handleNo,
+    });
+  }
+
+  static deleteAlias(index) {
+    LLDispatcher.dispatch({
+      actionType: actionType.DELETE_ALIAS,
+      index,
+    });
+  }
 }
 
 export default LLAction;

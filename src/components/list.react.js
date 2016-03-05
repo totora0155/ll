@@ -1,4 +1,5 @@
 import React from 'react';
+import LLAction from 'actions/ll';
 import LLStore from 'stores/ll';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 
@@ -27,13 +28,29 @@ class List extends React.Component {
     });
   }
 
+  deleteActionForAlias(e) {
+    const {index, msg} = e.target.dataset;
+    const handleYes = () => {
+      LLAction.deleteAlias(index);
+    }
+    const handleNo = () => {
+      console.log(1);
+    }
+
+    LLAction.confirm(msg, handleYes, handleNo);
+  }
+
   render() {
-    const lis = this.state.aliases.map((alias) => {
+    const lis = this.state.aliases.map((alias, idx) => {
+      const msg = `Delete '${alias.alias}' ?`;
+
       return (
         <li className="list__alias" key={alias.alias}>
           <span className="list__alias-name">{alias.alias}</span>
           <small className="list__alias-url">{alias.url}</small>
-          <a role="button" className="list__delete-btn icono-cross"></a>
+          <a role="button" className="list__delete-btn icono-cross"
+            data-index={idx} data-msg={msg}
+            onClick={::this.deleteActionForAlias}></a>
         </li>
       );
     });

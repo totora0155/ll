@@ -32,8 +32,16 @@ class LLStore {
     ev.emit(actionType.ADD_ALIAS);
   }
 
-  static addAddAliasListener(handler) {
-    ev.on(actionType.ADD_ALIAS, handler)
+  static addAddAliasListener(handle) {
+    ev.on(actionType.ADD_ALIAS, handle);
+  }
+
+  static emitShowDialog(msg, handleYes, handleNo) {
+    ev.emit(actionType.CONFIRM, msg, handleYes, handleNo);
+  }
+
+  static addShowDialogListener(handle) {
+    ev.on(actionType.CONFIRM, handle);
   }
 }
 
@@ -53,6 +61,25 @@ LLDispatcher.register((payload) => {
           })
           .then(storage.set)
           .then(() => LLStore.emitAddAlias())
+      }
+      break;
+
+    case actionType.DELETE_ALIAS:
+      {
+        const {index} = payload;
+        (async () => {
+          const aliases = await storage.get();
+          aliases.splice(index, 1);
+          storage.set(aliases);
+        })();
+      }
+
+      break;
+
+    case actionType.CONFIRM:
+      {
+        const {msg, handleYes, handleNo} = payload;
+        LLStore.emitShowDialog(msg, handleYes, handleNo);
       }
       break;
   }

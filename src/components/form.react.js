@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import LLAction from 'actions/ll';
 import LLStore from 'stores/ll'
 
@@ -22,7 +21,6 @@ class Form extends React.Component {
         const aliases = await LLStore.aliases;
         chrome.runtime.sendMessage({aliases}, () => {});
       })();
-      // LLStore.aliases.then(aliases => console.log(aliases));
     });
   }
 

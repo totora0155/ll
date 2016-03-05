@@ -1,5 +1,6 @@
 import React from 'react';
 import LLStore from 'stores/ll';
+import CSSTransitionGroup from 'react-addons-css-transition-group';
 
 class List extends React.Component {
   constructor(props) {
@@ -29,9 +30,9 @@ class List extends React.Component {
   render() {
     const lis = this.state.aliases.map((alias) => {
       return (
-        <li key={alias.alias}>
-          <span>{alias.alias}</span>
-          <small>{alias.url}</small>
+        <li className="list__alias" key={alias.alias}>
+          <span className="list__alias-name">{alias.alias}</span>
+          <small className="list__alias-url">{alias.url}</small>
         </li>
       );
     });
@@ -41,14 +42,19 @@ class List extends React.Component {
         return false;
       }
 
-      return <ul>{lis}</ul>;
+      return <ul className="list__aliases" key="list">{lis}</ul>;
     })();
 
     return (
       <div className="list__box">
+        <CSSTransitionGroup component="div" transitionName="list"
+          transitionEnterTimeout={160}
+          transitionLeaveTimeout={160}
+          >{list}</CSSTransitionGroup>
         <a className="list__btn list__btn--open" role="button"
-          onClick={::this.toggle}>Show Aliases</a>
-        {list}
+          onClick={::this.toggle}>
+          {this.state.visible ? 'Hide aliases' : 'Show aliases'}
+        </a>
       </div>
     );
   }

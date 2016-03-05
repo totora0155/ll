@@ -34,6 +34,9 @@
     "keymirror": "^0.1.1",
     "lodash.escape": "^4.0.0",
     "lodash.escaperegexp": "^4.1.1",
-    "lodash.unescape": "^4.0.0"
+    "lodash.unescape": "^4.0.0",
+    "react": "^0.14.7",
+    "react-addons-css-transition-group": "^0.14.7",
+    "react-dom": "^0.14.7"
   }
 }

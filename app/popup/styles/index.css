@@ -1,3 +1,5 @@
+@charset "utf-8";
+
 html {
   font: 15px/1.6 YuGothic,"游ゴシック","Hiragino Kaku Gothic Pro","ヒラギノ角ゴ Pro W3","メイリオ","Meiryo","ＭＳ Ｐゴシック",Osaka,sans-serif;
 }
@@ -29,12 +31,18 @@ input {
 
 input[type=text] {
   width: 100%;
-  transition: .16s ease-in-out;
+  transition: .16s linear;
   border: 1px solid #888;
 }
 
 input[type=text]:focus {
   border-color: #e8004d;
+}
+
+ul {
+  list-style: none;
+  padding: 0 1rem;
+  margin: 0;
 }
 
 a[role=button] {
@@ -83,6 +91,50 @@ a[role=button] {
   text-align: center;
   color: #fff;
 }
+
+.list__aliases {
+  overflow: auto;
+  transition: .16s linear;
+  background: transparent;
+  height: 10em;
+  opacity: 1;
+}
+
+.list__aliases.list-enter,
+.list__aliases.list-leave {
+  height: 0;
+  opacity: 0;
+}
+
+.list__alias {
+  padding: .5rem 1rem;
+  transition: .16s linear;
+}
+
+.list__alias:hover {
+  background: hsla(340.1, 100%, 45.5%, .1);
+}
+
+.list__alias:hover .list__alias-name {
+  color: #e8004d;
+}
+
+.list__alias-name {
+  display: block;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.list__alias-url {
+  display: block;
+  padding-left: 1rem;
+  text-align: right;
+  font-size: .75em;
+  color: hsla(0, 0%, 0%, .7);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 
 
 /*body {

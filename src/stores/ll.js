@@ -47,7 +47,7 @@ LLDispatcher.register((payload) => {
             aliases.push(alias);
             return Promise.resolve(aliases);
           })
-          // .then(storage.set)
+          .then(storage.set)
           .then(() => LLStore.emitAddAlias())
       }
       break;

@@ -55,7 +55,12 @@ class Form extends React.Component {
       const alias = this.refs.alias.value;
       const lastEnter = Date.now();
 
-      LLAction.addAlias({url, alias, lastEnter}, this.state.targetIdx);
+      if (url && alias) {
+        LLAction.addAlias({url, alias, lastEnter}, this.state.targetIdx);
+        LLStore.emitShowDialog('alert', `${alias} saved`);
+      } else {
+        LLStore.emitShowDialog('alert', `There is a blank :(`);
+      }
     })();
   }
 

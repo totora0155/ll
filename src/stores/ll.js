@@ -2,6 +2,7 @@ import EventEmitter from 'events';
 import LLDispatcher from 'dispatchers/ll';
 import actionType from 'constants/action-type';
 import storage from 'helpers/storage';
+import esc from 'lodash.escape';
 
 const ev = new EventEmitter();
 
@@ -21,7 +22,7 @@ class LLStore {
           active: true,
           currentWindow: true,
         }, (tabs) => {
-          _currentURL = tabs[0].url;
+          _currentURL = esc(tabs[0].url);
           return resolve(_currentURL);
         });
       }
@@ -36,12 +37,8 @@ class LLStore {
     ev.on(actionType.ADD_ALIAS, handle);
   }
 
-  static emitShowDialog(type, msg, handleYes, handleNo) {
-    ev.emit(actionType.CONFIRM, type, msg, handleYes, handleNo);
-  }
-
-  static emitDeleteAlias() {
-    ev.emit(actionType.DELETE_ALIAS);
+  static emitDeleteAlias(target) {
+    ev.emit(actionType.DELETE_ALIAS, target);
   }
 
   static addDeleteAliasListener(handle) {
@@ -56,6 +53,10 @@ class LLStore {
         return resolve();
       }, 161);
     });
+  }
+
+  static emitShowDialog(type, msg, handleYes, handleNo) {
+    ev.emit(actionType.CONFIRM, type, msg, handleYes, handleNo);
   }
 
   static addShowDialogListener(handle) {
@@ -91,9 +92,10 @@ LLDispatcher.register((payload) => {
         const {index} = payload;
         (async () => {
           const aliases = await storage.get();
+          const target = aliases[index]
           aliases.splice(index, 1);
           storage.set(aliases);
-          LLStore.emitDeleteAlias();
+          LLStore.emitDeleteAlias(target);
         })();
       }
 

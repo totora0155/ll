@@ -21,10 +21,16 @@ class Form extends React.Component {
         });
     });
 
-    LLStore.addDeleteAliasListener(() => {
+    LLStore.addDeleteAliasListener((deletedAlias) => {
       init.call(this)
         .then(({aliases}) => {
           chrome.runtime.sendMessage({aliases}, () => {});
+          (async () => {
+            const url = await LLStore.currentURL;
+            if (url === deletedAlias.url) {
+              this.refs.alias.value = '';
+            }
+          })();
         });
     });
   }
@@ -47,8 +53,8 @@ class Form extends React.Component {
       if (url && alias) {
         LLAction.addAlias({url, alias, lastEnter}, this.state.targetIdx);
         this.state.exists
-        ? LLStore.emitShowDialog('alert', `${alias} updated`)
-        : LLStore.emitShowDialog('alert', `${alias} saved`);
+        ? LLStore.emitShowDialog('alert', `'${alias}' updated`)
+        : LLStore.emitShowDialog('alert', `'${alias}' saved`);
       } else {
         LLStore.emitShowDialog('alert', `There is a blank :(`);
       }

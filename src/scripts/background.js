@@ -56,7 +56,7 @@ function onReady(_aliases) {
     if (!~idx) {
       idx = aliases.findIndex((aliasData) => {
         const re = new RegExp(escRE(text))
-        return re.test(aliasData.url);
+        return re.test(aliasData.alias);
       });
     }
 

@@ -5,6 +5,7 @@
   "main": "",
   "scripts": {
     "start": "gulp scripts",
+    "prezip": "rm ll.zip",
     "zip": "zip ll.zip -r app"
   },
   "keywords": [],

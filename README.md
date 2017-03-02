@@ -1,3 +1,7 @@
+### Change repo to [nju33/chrome-ll](https://github.com/nju33/chrome-ll)
+
+---
+
 <h1><img height="30" width="30" src="https://raw.githubusercontent.com/totora0155/ll/master/media/icon.png">&nbsp;ll</h1>
 
  Access to a url using an alias of it
